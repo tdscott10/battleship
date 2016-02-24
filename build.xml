@@ -35,16 +35,25 @@
             classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
             classpath="${lib.dir}/findbugs-ant.jar"/>
 
+  <!-- =================================================================== -->
+  <!-- Prints availible targets                                            -->
+  <!-- =================================================================== -->
   <target name="targets">
     <echo message="Run Application: ant run-app"/>
     <echo message="Run Tests: ant run-tests"/>
     <echo message="Deploy Jar: ant deploy"/>
   </target>
 
+  <!-- =================================================================== -->
+  <!-- Cleans Build Directory                                              -->
+  <!-- =================================================================== -->
   <target name="clean">
     <delete dir="${build.dir}"/>
   </target>
 
+  <!-- =================================================================== -->
+  <!-- Compiles java files into build/classes                              -->
+  <!-- =================================================================== -->
   <target name="compile">
     <delete dir="${build.dir}"/>
     <mkdir dir="${classes.dir}"/>
@@ -53,6 +62,9 @@
     <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="class.path" includeantruntime="false"/>
   </target>
 
+  <!-- =================================================================== -->
+  <!-- Creates Executable Jar                                              -->
+  <!-- =================================================================== -->
   <target name="deploy" depends="compile">
     <mkdir dir="${jar.dir}"/>
 
@@ -71,10 +83,16 @@
     </jar>
   </target>
 
+  <!-- =================================================================== -->
+  <!-- Runs Executable Jar                                                 -->
+  <!-- =================================================================== -->
   <target name="run-app" depends="deploy">
     <java jar="build/dist/battleship.jar" fork="true"/>
-</target>
+  </target>
 
+  <!-- =================================================================== -->
+  <!-- Runs Tests                                                          -->
+  <!-- =================================================================== -->
   <target name="run-tests" depends="compile">
     <delete dir="${test.junit.dir}"/>
     <delete dir="${test.jacoco.dir}"/>
